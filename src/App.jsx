@@ -1,38 +1,45 @@
-import React, { useState } from 'react'
-import ProductList from './components/ProductList'
-import DarkModeToggle from './components/DarkModeToggle'
-import Cart from './components/Cart'
+import { useState } from "react";
+import ProductList from "./components/ProductList";
+import DarkModeToggle from "./components/DarkModeToggle";
+import Cart from "./components/Cart";
+import "./index.css";
 
-const App = () => {
-  // TODO: Implement state for dark mode toggle
+function App() {
+const [darkMode, setDarkMode] = useState(false);
+const [cartItems, setCartItems] = useState([]);
+const [category, setCategory] = useState("All");
 
-  // TODO: Implement state for cart management
+return (
+<div className={darkMode ? "app dark" : "app light"}>
+<div className="container">
+<h1>Shopping App</h1>
 
-  // TODO: Implement state for category filtering
+<div className="top-controls">
+<DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
 
-  return (
-    <div>
-      <h1>🛒 Shopping App</h1>
-      <p>
-        Welcome! Your task is to implement filtering, cart management, and dark
-        mode.
-      </p>
+<select
+value={category}
+onChange={(e) => setCategory(e.target.value)}
+className="category-select"
+>
+<option value="All">All</option>
+<option value="Fruits">Fruits</option>
+<option value="Dairy">Dairy</option>
+</select>
+</div>
 
-      {/* TODO: Render DarkModeToggle and implement dark mode functionality */}
+<div className="content">
+<ProductList
+category={category}
+cartItems={cartItems}
+setCartItems={setCartItems}
+/>
 
-      {/* TODO: Implement category filter dropdown */}
-      <label>Filter by Category: </label>
-      <select>
-        <option value="all">All</option>
-        <option value="Fruits">Fruits</option>
-        <option value="Dairy">Dairy</option>
-      </select>
-
-      <ProductList />
-
-      {/* TODO: Implement and render Cart component */}
-    </div>
-  )
+<Cart cartItems={cartItems} setCartItems={setCartItems} />
+</div>
+</div>
+</div>
+);
 }
 
-export default App
+export default App;
